@@ -16,35 +16,48 @@ This repository contains implementations of fundamental bioinformatics algorithm
 ### 1️⃣ Global Alignment (Needleman-Wunsch)
 **File:** `GlobalAlignment.py`
 
-This script performs **global sequence alignment** using the Needleman-Wunsch algorithm, which is widely used for aligning two full-length biological sequences.
+The **Needleman-Wunsch algorithm** is a dynamic programming method used for **global sequence alignment**. It ensures that two sequences are aligned from start to finish by introducing gaps where necessary. This algorithm is widely used in genomics and proteomics for comparing DNA, RNA, or protein sequences.
 
-#### 🔹 Function: `GlobalAlignment(seq1, seq2, score)`
-- **Parameters:**
-  - `seq1` (str): The first sequence.
-  - `seq2` (str): The second sequence.
-  - `score` (tuple): Scoring system in the form `(match, mismatch, gap)`.
-- **Returns:**
-  - Tuple containing the score matrix and the aligned sequences `(aligned_seq1, aligned_seq2)`.
+🔹 **How It Works:**
+- A scoring matrix is initialized based on match, mismatch, and gap penalties.
+- The matrix is filled using dynamic programming to find the optimal alignment.
+- A traceback step reconstructs the best alignment path.
+
+🔹 **Applications:**
+- Comparing full-length gene sequences.
+- Identifying evolutionary relationships between species.
+- Aligning protein sequences for structural analysis.
+
+---
 
 ### 2️⃣ Local Alignment (Smith-Waterman)
 **File:** `LocalAlignment.py`
 
-This script performs **local sequence alignment** using the Smith-Waterman algorithm, which is useful for finding the most similar subsequences within two sequences.
+The **Smith-Waterman algorithm** is a dynamic programming approach used for **local sequence alignment**. Unlike global alignment, this method finds **only the most similar subsections** of two sequences, making it ideal for identifying conserved regions within genes or proteins.
 
-#### 🔹 Function: `LocalAlignment(seq1, seq2, score)`
-- **Parameters:**
-  - `seq1` (str): The first sequence.
-  - `seq2` (str): The second sequence.
-- **Returns:**
-  - Tuple containing the aligned subsequences `(aligned_seq1, aligned_seq2)`.
+🔹 **How It Works:**
+- A scoring matrix is built, but scores below zero are set to zero (allowing local matches to stand out).
+- The highest-scoring region is identified for optimal local alignment.
+- A traceback step extracts the aligned subsequences.
+
+🔹 **Applications:**
+- Detecting functional domains in proteins.
+- Finding gene sequences within larger genomic data.
+- Comparing short DNA or protein segments to reference databases.
+
+---
 
 ### 3️⃣ BLOSUM Matrix Calculation
 **File:** `BLOSUM_calculation.py`
 
-This script calculates the **BLOSUM substitution matrix** based on a given set of sequences, which is used for scoring alignments in sequence comparison.
+The **BLOSUM (BLOcks Substitution Matrix)** is a scoring matrix used in sequence alignment for comparing protein sequences. It is derived from aligned blocks of protein sequences that share evolutionary relationships.
 
-#### 🔹 Function: `BLOSUM_calculation(sequences)`
-- **Parameters:**
-  - `sequences` (list of str): A list of sequences to compute the BLOSUM matrix.
-- **Returns:**
-  - `numpy.array`: The computed BLOSUM matrix.
+🔹 **How It Works:**
+- A set of related protein sequences is grouped into clusters based on sequence identity.
+- The frequency of amino acid substitutions is calculated to generate substitution scores.
+- The resulting matrix helps determine the likelihood of one amino acid mutating into another.
+
+🔹 **Applications:**
+- Used in BLAST (Basic Local Alignment Search Tool) for protein sequence comparison.
+- Helps in predicting protein function and evolutionary distance.
+- Aids in identifying conserved residues important for protein stability.
